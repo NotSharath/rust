@@ -18,6 +18,13 @@ macro_rules! arena_types {
             [decode] specialization_graph: rustc::traits::specialization_graph::Graph,
             [few] crate_inherent_impls: rustc::ty::CrateInherentImpls,
             [decode] borrowck: rustc::middle::borrowck::BorrowCheckResult,
+            [few] upstream_monomorphizations:
+                rustc::util::nodemap::DefIdMap<
+                    rustc_data_structures::fx::FxHashMap<
+                        rustc::ty::subst::SubstsRef<'tcx>,
+                        rustc::hir::def_id::CrateNum
+                    >
+                >,
         ], $tcx);
     )
 }
