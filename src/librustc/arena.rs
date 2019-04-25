@@ -14,8 +14,19 @@ macro_rules! arena_types {
                 rustc::hir::def_id::DefId,
                 rustc::ty::subst::SubstsRef<$tcx>
             )>,
-            [few] mir_keys: rustc::util::nodemap::DefIdSet,
+            [few, decode] mir_keys: rustc::util::nodemap::DefIdSet,
             [decode] specialization_graph: rustc::traits::specialization_graph::Graph,
+            [few] crate_inherent_impls: rustc::ty::CrateInherentImpls,
+            [decode] borrowck: rustc::middle::borrowck::BorrowCheckResult,
+            [few] upstream_monomorphizations:
+                rustc::util::nodemap::DefIdMap<
+                    rustc_data_structures::fx::FxHashMap<
+                        rustc::ty::subst::SubstsRef<'tcx>,
+                        rustc::hir::def_id::CrateNum
+                    >
+                >,
+            [few] resolve_lifetimes: rustc::middle::resolve_lifetime::ResolveLifetimes,
+            [decode] generic_predicates: rustc::ty::GenericPredicates<'tcx>,
         ], $tcx);
     )
 }
